@@ -26,30 +26,30 @@ def generate_variations(word):
     
     return variations
 
-def process_words_from_file(filename):
-    with open(filename, 'r') as file:
-        # Read words from file and process each word
+def process_words_from_file(input_filename, output_filename):
+    with open(input_filename, 'r') as file:
+        # Read words from the input file and process each word
         words = file.read().splitlines()
     
-    # Process each word and generate variations
-    all_variations = []
-    for word in words:
-        variations = generate_variations(word)
-        all_variations.append(variations)
-    
-    return all_variations
+    # Open the output file in write mode (this will overwrite any existing content)
+    with open(output_filename, 'w') as output_file:
+        for word in words:
+            # Get variations for each word
+            variations = generate_variations(word)
+            # Write each variation to the output file, followed by a newline
+            for variation in variations:
+                output_file.write(variation + '\n')
 
 def main():
-    # File name where words are stored
-    filename = 'words'
+    # Input file containing words
+    input_filename = 'words'  # Change this to your actual input file name
+    # Output file to store generated variations
+    output_filename = 'variations.txt'  # Output file to store the variations
     
-    # Get variations for each word
-    all_variations = process_words_from_file(filename)
+    # Process words from input file and write the variations to output file
+    process_words_from_file(input_filename, output_filename)
     
-    # Print the variations for each word
-    for variations in all_variations:
-        for variation in variations:
-            print(variation)
+    print(f"Variations have been written to {output_filename}")
 
 if __name__ == "__main__":
     main()
